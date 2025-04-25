@@ -1,17 +1,9 @@
 #!/bin/sh
 
-# wait until PostgreSQL is ready
-echo "Waiting for PostgreSQL..."
+echo "⏳ Waiting for PostgreSQL to start..."
 
-# Use wait-for-it to wait for PostgreSQL on port 5432
-/usr/local/bin/wait-for-it db:5432 --timeout=30 --strict -- echo "PostgreSQL started"
+# Change `db:5432` if your Render Postgres URL is different!
+wait-for-it db:5432 --timeout=30 --strict -- echo "✅ PostgreSQL is up!"
 
-# Additional check using netcat (optional redundancy)
-while ! nc -z db 5432; do
-  sleep 0.5
-done
-
-echo "PostgreSQL started. Launching FastAPI..."
-
-# Run the CMD from Dockerfile
+# Very important: run CMD passed by Docker (your uvicorn command)
 exec "$@"
