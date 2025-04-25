@@ -31,15 +31,14 @@ jobs:
 
       - name: Set up Python
         uses: actions/setup-python@v4
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔐 Log in to GitHub Container Registry
+        run: echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: 🛠️ Build Docker image
         run: |
           docker build -t ghcr.io/${{ github.repository }}:latest .
 
-      - name: Run tests
+      - name: 🚀 Push Docker image
         run: |
           docker push ghcr.io/${{ github.repository }}:latest
