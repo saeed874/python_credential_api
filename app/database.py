@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not DATABASE_URL:
-    print("⚠️ WARNING: DATABASE_URL not set. Using local fallback.")
+    print("⚠️ WARNING: DATABASE_URL not set. Using local fallback ")
     DATABASE_URL = "postgresql://postgres:1234@db:5432/postgres"
 
 print(f"Connecting to DB: {DATABASE_URL}") 
