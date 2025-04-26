@@ -3,12 +3,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# Use Render-provided DATABASE_URL if it exists — fallback only if running locally
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-if DATABASE_URL is None:
-    # fallback for local dev only
+if not DATABASE_URL:
+    print("⚠️ WARNING: DATABASE_URL not set. Using local fallback.")
     DATABASE_URL = "postgresql://postgres:1234@db:5432/postgres"
+
+print(f"Connecting to DB: {DATABASE_URL}")  # Optional: Debug log
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
