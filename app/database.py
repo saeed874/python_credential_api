@@ -9,7 +9,7 @@ if not DATABASE_URL:
     print("⚠️ WARNING: DATABASE_URL not set. Using local fallback.")
     DATABASE_URL = "postgresql://postgres:1234@db:5432/postgres"
 
-print(f"Connecting to DB: {DATABASE_URL}")  # Optional: Debug log
+print(f"Connecting to DB: {DATABASE_URL}") 
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
