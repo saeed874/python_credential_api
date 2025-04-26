@@ -6,4 +6,12 @@ services:
     dockerfilePath: ./Dockerfile
     envVars:
       - key: DATABASE_URL
-        value: postgresql://postgres:1234@db:5432/postgres
+        fromDatabase:
+          name: fastapi-db
+          property: connectionString
+
+databases:
+  - name: fastapi-db
+    plan: free
+    databaseName: postgres
+    user: postgres
